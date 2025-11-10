@@ -1,10 +1,10 @@
 import type { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 
-import { mapCountry } from '../mappers'
-import { FailedToFetchError, NotFoundError } from '../errors'
 import { COUNTRIES_API_URL } from '../constants'
-import { getNeighbors } from '../services/get-neighbors'
+import { FailedToFetchError, NotFoundError } from '../errors'
+import { mapCountry } from '../mappers'
+import { getNeighbors } from '../services'
 
 export const getAllCountries = async (req: Request, res: Response) => {
   const response = await fetch(
