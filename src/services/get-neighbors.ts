@@ -2,7 +2,10 @@ import { StatusCodes } from 'http-status-codes'
 
 import { COUNTRIES_API_URL } from '../constants'
 import { FailedToFetchError, NotFoundError } from '../errors'
-import { extractNames } from '../helpers'
+
+const extractNeighborNames = (collection: any[] = []) => {
+  return collection.map((item) => item.name.common)
+}
 
 export const getNeighbors = async (codes: string) => {
   const response = await fetch(`${COUNTRIES_API_URL}/alpha?codes=${codes}`)
@@ -17,5 +20,5 @@ export const getNeighbors = async (codes: string) => {
 
   const data = (await response.json()) as any[]
 
-  return extractNames(data)
+  return extractNeighborNames(data)
 }

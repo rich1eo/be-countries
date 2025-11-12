@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import countriesRouter from './countries'
 
-const router = Router()
+import { countriesRouter } from './countries'
 
-router.use('/countries', countriesRouter)
+const appRouter = Router()
 
-export default router
+appRouter.use('/countries', countriesRouter)
+
+export { appRouter }

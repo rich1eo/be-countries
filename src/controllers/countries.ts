@@ -3,7 +3,8 @@ import { StatusCodes } from 'http-status-codes'
 
 import { COUNTRIES_API_URL } from '../constants'
 import { FailedToFetchError, NotFoundError } from '../errors'
-import { mapCountry } from '../mappers'
+import { mapAllCountries, mapCountry } from '../mappers'
+import { cacheResponse } from '../redis'
 import { getNeighbors } from '../services'
 
 export const getAllCountries = async (req: Request, res: Response) => {
@@ -12,14 +13,15 @@ export const getAllCountries = async (req: Request, res: Response) => {
   )
 
   if (!response.ok) {
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ error: 'Failed to fetch countries' })
+    throw new FailedToFetchError('Failed to fetch countries')
   }
 
-  const data = await response.json()
+  const data = (await response.json()) as any[]
+  const countries = mapAllCountries(data)
 
-  res.status(StatusCodes.OK).json(data)
+  await cacheResponse(res, countries, { debug: true })
+
+  res.status(StatusCodes.OK).json(countries)
 }
 
 export const getCountryByName = async (req: Request, res: Response) => {
@@ -50,6 +52,8 @@ export const getCountryByName = async (req: Request, res: Response) => {
   }
 
   const mappedCountry = mapCountry(country)
+
+  await cacheResponse(res, mappedCountry, { debug: true })
 
   res.status(StatusCodes.OK).json(mappedCountry)
 }

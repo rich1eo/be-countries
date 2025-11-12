@@ -1,1 +1,1 @@
-export const COUNTRIES_API_URL = 'https://restcountries.com/v2'
+export const COUNTRIES_API_URL = 'https://restcountries.com/v3.1'
