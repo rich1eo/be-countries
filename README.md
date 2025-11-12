@@ -6,8 +6,18 @@ To install dependencies:
 bun install
 ```
 
-To run:
+To run server locally:
 
 ```bash
-bun run index.ts
+bun dev
 ```
+
+To build app:
+
+```bash
+bun build:app
+```
+
+## Redis
+
+To work with application you need to run redis: [Cache Strategy Doc](docs/cache-strategy.md)
