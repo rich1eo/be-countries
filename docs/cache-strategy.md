@@ -80,13 +80,3 @@ sequenceDiagram
     Redis-->>BE: Yes, here it is!
     BE-->>Client: Here is your data, sir
 ```
-
-## How to kill the process on a specific port
-
-In case we cannot run the node app on a specific port:
-
-```bash
-lsof -i :3000
-
-kill -9 <PID>
-```
