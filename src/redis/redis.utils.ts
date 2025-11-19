@@ -16,7 +16,7 @@ const saveToRedis = async (
   })
 
   if (debug) {
-    console.log(`✅ Saved to Redis by key: ${key} with TTL: ${ttl}`)
+    console.log(`Saved to Redis by key: ${key} with TTL: ${ttl}`)
   }
 }
 
@@ -28,8 +28,8 @@ const getFromRedis = async <T>(
 
   if (debug) {
     console.log(
-      `🔍 Got from Redis by key: ${key} — `,
-      data ? '✅ data found' : '❌ data not found',
+      `Got from Redis by key: ${key} — `,
+      data ? 'data found' : 'data not found',
     )
   }
 
